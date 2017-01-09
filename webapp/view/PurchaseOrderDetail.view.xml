@@ -1,0 +1,67 @@
+<!-- @author: K Satish Kumar -->
+<mvc:View controllerName="PurchaseOrdersApproval.controller.PurchaseOrderDetail" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="Purchase Order Details" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
+				navButtonPress="onMoveBack">
+				<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
+					<content>
+						<FlexBox>
+							<ObjectHeader title="Vendor Name:{/VendorName}">
+								<attributes>
+									<ObjectAttribute title="Vendor No" text="{/VendorNo}"/>
+									<ObjectAttribute title="PO Number" text="{/PONumber}"/>
+									<ObjectAttribute title="Document Date" text="{path: '/DocumentDate', formatter:'.formatDate' }"/>
+									<ObjectAttribute title="Total Netval" text="{/TotalNetval} {/Currency}"/>
+								</attributes>
+							</ObjectHeader>
+						</FlexBox>
+						<Table items="{/POItemSet/results}">
+							<columns>
+								<Column >
+									<Text text="Material"/>
+								</Column>
+								<Column>
+									<Text text="Quantity"/>
+								</Column>
+								<Column>
+									<Text text="Plant"/>
+								</Column>
+								<Column >
+									<Text text="DeliveryDate"/>
+								</Column>
+								<Column >
+									<Text text="Netval"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem >
+									<cells>
+										<Text text="{Material}"/>
+										<Text text="{Quantity}" wrapping="false"/>
+										<Text text="{Plant} "/>
+										<Text text="{path: 'DeliveryDate', formatter:'.formatDate' }"/>
+										<Text text="{Netval}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+							<infoToolbar>
+								<Toolbar active="false">
+									<Label text="Purchase Order Items"/>
+								</Toolbar>
+							</infoToolbar>
+						</Table>
+					</content>
+				</ScrollContainer>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Accept" width="50%" type="Accept" press="onAcceptOrder"/>
+						<Button text="Reject" width="50%" type="Reject" press="onRejectOrder"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
