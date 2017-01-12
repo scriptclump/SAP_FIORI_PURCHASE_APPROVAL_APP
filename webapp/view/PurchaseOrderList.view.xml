@@ -7,21 +7,21 @@
 				<content>
 					<SearchField width="100%" placeholder="Search" id="__field0" showRefreshButton="{device>/isNoTouch}" liveChange="onSearch"/>
 					<!--<PullToRefresh id="pullToRefresh" visible="{device>/isTouch}" refresh="onRefreshOrdersData"/>-->
-					<List id="idList" growing="true" growingThreshold="10" growingScrollToLoad="false" items="{/d/results}">
+					<List id="idList" growing="true" growingThreshold="10" growingScrollToLoad="false" items="{/d/results}" growingTriggerText="Load more rows">
 						<items>
-							<ObjectListItem title="{VendorName}" type="Navigation" press="onListItemPress" number="{TotalNetval}" numberUnit="{Currency}">
+							<ObjectListItem title="{VendorNo} {VendorName}" type="Navigation" press="onListItemPress" number="{TotalNetval}" numberUnit="{Currency}">
 								<firstStatus>
 									<ObjectStatus id="lastSyncDate" text="{path: 'DocumentDate', formatter:'.formatDate' }"/>
 								</firstStatus>
 								<attributes>
-									<ObjectAttribute text="{VendorNo}"/>
+									<!--<ObjectAttribute text="{VendorNo}"/>-->
 									<ObjectAttribute text="{PONumber}"/>
 								</attributes>
 							</ObjectListItem>
 						</items>
 						<infoToolbar>
 							<Toolbar active="false">
-								<Label text="Blocked Orders"/>
+								<Label text="Orders pending for approval."/>
 							</Toolbar>
 						</infoToolbar>
 					</List>
@@ -29,8 +29,8 @@
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Label text="Updated On :"/>
-						<Label text="23/12/16" id="__updatedOnID"/>
+						<Label text="Last refresh at:"/>
+						<Label text="" value="" id="updatedOnID"/>
 					</Toolbar>
 				</footer>
 			</Page>

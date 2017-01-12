@@ -9,12 +9,9 @@ sap.ui.define([
 ], function(BaseController, MessageToast, JSONModel) {
 	"use strict";
 	return BaseController.extend("PurchaseOrdersApproval.controller.Login", {
+		
 		onInit: function() {
-			var oData = {
-			
-			};
-			var jsonObject = new JSONModel(oData);
-			this.getView().setModel(jsonObject);
+			                                   
 
 		},
 		

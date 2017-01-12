@@ -4,14 +4,16 @@
 	xmlns:viz.data="sap.viz.ui5.data" height="100%">
 	<Page title="{i18n>dashboardPageTitle}" id="__dashboard" backgroundDesign="List">
 		<content>
-			<List>
-				<DisplayListItem label="Approver Name:" value="{/d/results/0/Username}"/>
-				<DisplayListItem label="Total Pending Orders:" id="totalPendingOrders" value="" type="Navigation" press="moveToNext" />
-				<DisplayListItem label="Updated at:" id="lastSyncDate" value="{
-				path: '/d/results/0/UpdatedOn',
-				formatter:'.formatDate'
-				}"/>
-			</List>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader=""
+				press="tilePress" frameType="Auto">
+				<tileContent>
+					<TileContent id="tileCntId" footer="Pending Orders">
+						<content>
+							<NumericContent truncateValueTo="8" id="totalPendingOrders" valueColor="Good" value=""/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
 			<layout:FixFlex id="chartFixFlex" minFlexSize="250">
 				<layout:flexContent>
 					<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"
@@ -34,5 +36,18 @@
 				</layout:flexContent>
 			</layout:FixFlex>
 		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Label text="Last refresh at:"/>
+				<Label text="{
+					path: '/d/results/0/UpdatedOn',
+					formatter:'.formatDate'
+					} {
+					path: '/d/results/0/UpdatedAt',
+					formatter:'.formatTime'
+					}" id="__updatedOnID"/>
+			</Toolbar>
+		</footer>
 	</Page>
 </mvc:View>

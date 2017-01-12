@@ -48,6 +48,10 @@ sap.ui.define([
 				}
 				cntrl.byId("totalPendingOrders").setValue(totalPendingOrders);
 				cntrl.getView().setModel(dataModel);
+				var UpdatedAt = cntrl.formatTime(dataModel.oData.d.results[0].UpdatedAt);
+				var UpdatedOn = cntrl.formatDate(dataModel.oData.d.results[0].UpdatedOn);
+				var lastRefreshAt =  UpdatedOn + ' ' + UpdatedAt;
+				sap.ui.getCore().setModel( lastRefreshAt, "lastRefreshAt");
 			}).fail(function(data) {
 				MessageToast.show(data.responseJSON.error.message.value);
 			});
@@ -58,7 +62,7 @@ sap.ui.define([
 		 * @author Basant Sharma
 		 * @public
 		 */
-		moveToNext: function() {
+		tilePress: function() {
 			var oRouter = this.getRouter();
 			oRouter.navTo('PurchaseOrderList');
 		},
@@ -72,8 +76,21 @@ sap.ui.define([
 		 */
 		formatDate : function (value) {
 			if (value) {
-				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "dd-MM-yyyy hh:mm"}); 
+				var oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "dd-MM-yyyy"}); 
 				return oDateFormat.format(this.cleanDate(value));
+				// var d = new Date(sDate);
+				// return sDate.toDateString() + ' ' + sDate.toTimeString();
+			} else {
+				return value;
+			}
+		},
+		
+		formatTime : function (value) {
+			if (value) {
+				var formattedTime = value.substr(2, 2) + ':' + value.substr(5, 2) + ':' + value.substr(8, 2);
+				return formattedTime;
+				//return oDateFormat = sap.ui.core.format.DateFormat.getDateTimeInstance({pattern: "hh:mm:ss"}); 
+				//return oDateFormat.format(this.cleanDate(value));
 				// var d = new Date(sDate);
 				// return sDate.toDateString() + ' ' + sDate.toTimeString();
 			} else {

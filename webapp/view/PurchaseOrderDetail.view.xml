@@ -3,17 +3,18 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
 	<App>
 		<pages>
-			<Page title="Purchase Order Details" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
+			<Page title="PO Header and Item Details" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
 				navButtonPress="onMoveBack">
 				<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 					<content>
 						<FlexBox>
-							<ObjectHeader title="Vendor Name:{/VendorName}">
+							<ObjectHeader title="{/VendorName}">
 								<attributes>
 									<ObjectAttribute title="Vendor No" text="{/VendorNo}"/>
 									<ObjectAttribute title="PO Number" text="{/PONumber}"/>
 									<ObjectAttribute title="Document Date" text="{path: '/DocumentDate', formatter:'.formatDate' }"/>
-									<ObjectAttribute title="Total Netval" text="{/TotalNetval} {/Currency}"/>
+									<ObjectAttribute title="Net Value" text="{/TotalNetval} {/Currency}"/>
+									<ObjectAttribute title="Actual Price" text="{/ActualPrice} {/Currency}"/>
 								</attributes>
 							</ObjectHeader>
 						</FlexBox>
@@ -29,10 +30,10 @@
 									<Text text="Plant"/>
 								</Column>
 								<Column >
-									<Text text="DeliveryDate"/>
+									<Text text="Delivery Date"/>
 								</Column>
 								<Column >
-									<Text text="Netval"/>
+									<Text text="Net Value"/>
 								</Column>
 							</columns>
 							<items>
@@ -57,8 +58,8 @@
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button text="Accept" width="50%" type="Accept" press="onAcceptOrder"/>
 						<Button text="Reject" width="50%" type="Reject" press="onRejectOrder"/>
+						<Button text="Accept" width="50%" type="Accept" press="onAcceptOrder"/>
 					</Toolbar>
 				</footer>
 			</Page>

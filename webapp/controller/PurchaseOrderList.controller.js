@@ -17,9 +17,11 @@ sap.ui.define([
 	var ListController = BaseController.extend("PurchaseOrdersApproval.controller.PurchaseOrderList", {
 
 		onInit: function(evt) {
-
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
+		//	var lastRefreshAt = sap.ui.getCore().getModel('lastRefreshAt');	
+		//	cntrl.getView().setModel(lastRefreshAt);
+			//cntrl.byId("__updatedOnID").setValue(lastRefreshAt);
 			var serviceUrl =
 				"/destinations/sap_erp/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '"+userName+"')&$expand=POItemSet&$format=json";
 			$.ajax({
@@ -30,6 +32,7 @@ sap.ui.define([
 			}).done(function(data) {
 				var dataModel = new JSONModel(data);
 				cntrl.getView().setModel(dataModel);
+				cntrl.byId("updatedOnID").setText(sap.ui.getCore().getModel('lastRefreshAt'));
 			}).fail(function(error) {
 				MessageToast.show(error.responseJSON.error.message.value);
 			});

@@ -8,7 +8,7 @@
     "targetFolder": "dist",
     "sourceFolder": "webapp",
     "buildRequired": true,
-    "lastBuildDateTime": "Thu, 05 Jan 2017 13:00:46 GMT"
+    "lastBuildDateTime": "Wed, 11 Jan 2017 13:35:11 GMT"
   },
   "generation": [
     {
@@ -39,7 +39,7 @@
   "hcpdeploy": {
     "account": "b49666774",
     "name": "pofioriapp",
-    "lastVersionWeTriedToDeploy": "1.0.5"
+    "lastVersionWeTriedToDeploy": "1.0.7"
   },
   "hybrid": {
     "appname": "PurchaseOrderApprovial",
@@ -129,8 +129,8 @@
     },
     "useAppDescriptor4UI5Libs": false,
     "localBuild": {
-      "useCustomLib": false,
-      "customLibFile": ""
+      "useCustomLib": true,
+      "customLibFile": "sapui5-foo.zip"
     },
     "cloudBuild": {
       "androidSigning": "",
@@ -150,7 +150,7 @@
     },
     "platform": {
       "ios": {
-        "selected": false,
+        "selected": true,
         "preferences": {
           "Fullscreen": false,
           "Orientation": "all",
@@ -159,7 +159,7 @@
         }
       },
       "android": {
-        "selected": true,
+        "selected": false,
         "preferences": {
           "Fullscreen": false,
           "Orientation": "default",
