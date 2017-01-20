@@ -7,6 +7,7 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	"sap/ui/core/format/DateFormat",
 	"sap/ui/model/json/JSONModel"
+
 ], function(BaseController, MessageToast, History, DateFormat, JSONModel) {
 	"use strict";
 	return BaseController.extend("PurchaseOrdersApproval.controller.PurchaseOrderDetail", {
@@ -25,33 +26,95 @@ sap.ui.define([
 			this.getView().setModel(selectedDeatils);
 		},
 		onAcceptOrder: function() {
-			MessageToast.show('Accepted');
-			// var mangerName = "MANAGER1";
-			// var poNumber = "4500022511";
-			// 			var serviceUrl =
-			// 	"/destinations/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq"+mangerName+" and PONumber eq"+poNumber+"and POStatus eq '05'";
-			// this.onServiceCall(serviceUrl);
 
+			var self = this;
+
+			var dialog = new sap.m.Dialog({
+				title: 'Accept',
+				type: 'Message',
+				content: new sap.m.Text({
+					text: 'Are you sure you want to accept?'
+				}),
+				beginButton: new sap.m.Button({
+					text: 'Submit',
+					press: function() {
+						self.SubmitUserOptions("05");
+						dialog.close();
+					}
+				}),
+				endButton: new sap.m.Button({
+					text: 'Cancel',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+
+			dialog.open();
 		},
 		onRejectOrder: function() {
-			MessageToast.show('Rejected');
-			// var mangerName = "MANAGER1";
-			// var poNumber = "4500022511";
-			// var serviceUrl =
-			// 	"/destinations/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq"+mangerName+"and PONumber eq"+poNumber+"and POStatus eq '08'";
-			// this.onServiceCall(serviceUrl);
-
+			var self = this;
+			var dialog = new sap.m.Dialog({
+				title: 'Reject',
+				type: 'Message',
+				content: [
+					new sap.m.Text({ text: 'Are you sure you want to reject?' }),
+					new sap.m.TextArea('submitDialogTextarea', {
+						liveChange: function(oEvent) {
+							var sText = oEvent.getParameter('value');
+							var parent = oEvent.getSource().getParent();
+ 
+							parent.getBeginButton().setEnabled(sText.length > 0);
+						},
+						width: '100%',
+						placeholder: 'Add note (required)'
+					})
+				],
+				beginButton: new sap.m.Button({
+					text: 'Reject',
+					enabled: false,
+					press: function() {
+						// var sText = sap.ui.getCore().byId('submitDialogTextarea').getValue();
+						// MessageToast.show('Note is: ' + sText);
+						self.SubmitUserOptions("08");
+						dialog.close();
+					}
+				}),
+				endButton: new sap.m.Button({
+					text: 'Cancel',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			dialog.open();
 		},
-		onServiceCall: function(serviceUrl) {
+		SubmitUserOptions: function(kToken) {
+			var managerName = sap.ui.getCore().getModel('username');
+			var poNumber = this.byId("__poNumber").getText();
+			this.onServiceCall(managerName, kToken, poNumber);
+		},
+		onServiceCall: function(userName, token, poNumber) {
+			
+			var self = this;
+
+			var serviceUrl = "/destinations/sap_erp/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq '" + userName +
+				"'and PONumber eq '" + poNumber + "'and POStatus eq '" + token + "'";
+
 			$.ajax({
 				url: serviceUrl,
 				type: "GET",
-				async: true,
-				dataType: "json"
+				async: true
 			}).done(function(data) {
-				MessageToast.show("success");
+				self.printSuccessMessage(data, token, poNumber);
 			}).fail(function(error) {
-				MessageToast.show(error.responseJSON.error.message.value);
+				self.printErrorMessage(error);
 			});
 		},
 		/**
@@ -95,6 +158,53 @@ sap.ui.define([
 				oRouter.navTo("PurchaseOrderList", true);
 			}
 
+		},
+		printErrorMessage: function (errorMsg) {
+			var errorMessage = "Operation failed.Please try again !";
+			var dialog = new sap.m.Dialog({
+				title: 'Error',
+				type: 'Message',
+				state: 'Error',
+				content: new sap.m.Text({
+					text: errorMessage
+				}),
+				beginButton: new sap.m.Button({
+					text: 'OK',
+					press: function () {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+ 
+			dialog.open();
+		},
+		printSuccessMessage: function (successMsg, kToken, poNum) {
+			var self = this;
+			var promptMessage = "";
+			if(kToken==="05")  promptMessage = "Purchase order number:"+poNum+" has been successfully approved."; else promptMessage = "Purchase order number:"+poNum+" has been rejected"; 
+			var dialog = new sap.m.Dialog({
+				title: 'Success',
+				type: 'Message',
+				state: 'Success',
+				content: new sap.m.Text({
+					text: promptMessage
+				}),
+				beginButton: new sap.m.Button({
+					text: 'OK',
+					press: function () {
+						dialog.close();
+						self.onMoveBack();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+ 
+			dialog.open();
 		}
 
 	});

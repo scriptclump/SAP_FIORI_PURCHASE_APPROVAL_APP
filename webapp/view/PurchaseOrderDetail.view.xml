@@ -3,37 +3,37 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
 	<App>
 		<pages>
-			<Page title="PO Header and Item Details" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
+			<Page title="{i18>HeaderAndItemDetails}" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
 				navButtonPress="onMoveBack">
 				<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
 					<content>
 						<FlexBox>
 							<ObjectHeader title="{/VendorName}">
 								<attributes>
-									<ObjectAttribute title="Vendor No" text="{/VendorNo}"/>
-									<ObjectAttribute title="PO Number" text="{/PONumber}"/>
-									<ObjectAttribute title="Document Date" text="{path: '/DocumentDate', formatter:'.formatDate' }"/>
-									<ObjectAttribute title="Net Value" text="{/TotalNetval} {/Currency}"/>
-									<ObjectAttribute title="Actual Price" text="{/ActualPrice} {/Currency}"/>
+									<ObjectAttribute title="{i18n>vendorNo}" text="{/VendorNo}"/>
+									<ObjectAttribute title="{i18n>poNumber}" id="__poNumber" text="{/PONumber}"/>
+									<ObjectAttribute title="{i18n>documentDate}" text="{path: '/DocumentDate', formatter:'.formatDate' }"/>
+									<ObjectAttribute title="{i18n>netValue}" text="{/TotalNetval} {/Currency}"/>
+									<ObjectAttribute title="{i18n>actualPrice}" text="{/ActualPrice} {/Currency}"/>
 								</attributes>
 							</ObjectHeader>
 						</FlexBox>
 						<Table items="{/POItemSet/results}">
 							<columns>
 								<Column >
-									<Text text="Material"/>
+									<Text text="{i18n>material}"/>
 								</Column>
 								<Column>
-									<Text text="Quantity"/>
+									<Text text="{i18n>quantity}"/>
 								</Column>
 								<Column>
-									<Text text="Plant"/>
+									<Text text="{i18n>plant}"/>
 								</Column>
 								<Column >
-									<Text text="Delivery Date"/>
+									<Text text="{i18n>deliveryDate}"/>
 								</Column>
 								<Column >
-									<Text text="Net Value"/>
+									<Text text="{i18n>netValue}"/>
 								</Column>
 							</columns>
 							<items>
@@ -49,7 +49,7 @@
 							</items>
 							<infoToolbar>
 								<Toolbar active="false">
-									<Label text="Purchase Order Items"/>
+									<Label text="{i18n>poItems}"/>
 								</Toolbar>
 							</infoToolbar>
 						</Table>

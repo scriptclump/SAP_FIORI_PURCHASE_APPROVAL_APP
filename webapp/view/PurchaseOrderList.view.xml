@@ -30,7 +30,7 @@
 					<Toolbar>
 						<ToolbarSpacer/>
 						<Label text="Last refresh at:"/>
-						<Label text="" value="" id="updatedOnID"/>
+						<Label text="" id="updatedOnID"/>
 					</Toolbar>
 				</footer>
 			</Page>

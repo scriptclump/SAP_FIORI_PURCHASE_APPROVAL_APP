@@ -17,6 +17,20 @@ sap.ui.define([
 	var ListController = BaseController.extend("PurchaseOrdersApproval.controller.PurchaseOrderList", {
 
 		onInit: function(evt) {
+			var router = this.getOwnerComponent().getRouter();
+			var target = router.getTarget("PurchaseOrderList");
+			target.attachDisplay(this.onDisplay, this);
+		},
+		/** Fires evey time view is displayed.
+		 *
+		 * @param oEvent
+		 */
+		onDisplay: function(oEvent) {
+			
+			var dialog = new sap.m.BusyDialog({ 
+				
+			});
+			dialog.open();              
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
 		//	var lastRefreshAt = sap.ui.getCore().getModel('lastRefreshAt');	
@@ -30,10 +44,12 @@ sap.ui.define([
 				async: true,
 				dataType: "json"
 			}).done(function(data) {
+				//dialog.close();
 				var dataModel = new JSONModel(data);
 				cntrl.getView().setModel(dataModel);
 				cntrl.byId("updatedOnID").setText(sap.ui.getCore().getModel('lastRefreshAt'));
 			}).fail(function(error) {
+				dialog.close();
 				MessageToast.show(error.responseJSON.error.message.value);
 			});
 		},

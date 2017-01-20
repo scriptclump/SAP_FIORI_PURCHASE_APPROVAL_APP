@@ -22,7 +22,12 @@
 				}).placeAt("content");
 			});
 		</script>
-	<script type="text/javascript">
+	<script type="text/javascript">window.sap_webide_FacadePreview = true;</script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/cordovafacade/cordova.js" type="text/javascript"></script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/mobileextend/MessageDef.js" type="text/javascript"></script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/mobileextend/MessageBridge.js" type="text/javascript"></script>
+<link href="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/css/mobileExtend.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
 window.swa = {
 	"baseUrl": "https://cloud.warp.sap.com/tracker/",
 	"clicksEnabled": false,
@@ -30,7 +35,7 @@ window.swa = {
 		"ref": "NONE_SAP"
 	},
 	"custom6": {
-		"ref": "161229"
+		"ref": "170119"
 	},
 	"custom7": {},
 	"custom8": {
@@ -84,6 +89,26 @@ var href = window.location.href;
 var search = window.location.search;
 var url = href.replace(search, '');
 window._orgUrl = url.substr(0, url.lastIndexOf('/')) + '/index.html' + search;
+var sEventValue='Cordova Facade'
+if(search.indexOf('companionbuster')>=0){// Companion App
+	sEventValue = 'CompanionApp';
+};
+if (window.swa && typeof Piwik !='undefined') {
+	window.swa.trackCustomEvent('ide_preview_on', sEventValue);
+	if(sEventValue === 'CompanionApp') {
+		setTimeout(function(){window.location.assign(window._orgUrl)}, 500);
+	}
+} else {
+	var interval = setInterval(function() {
+		if (window.swa && typeof Piwik !='undefined') {
+			clearInterval(interval);
+			window.swa.trackCustomEvent('ide_preview_on', sEventValue);
+			if(sEventValue === 'CompanionApp') {
+				setTimeout(function(){window.location.assign(window._orgUrl)}, 500);
+			}
+		}
+	}, 100);
+}
 </script>
 <script src="https://cloud.warp.sap.com/tracker/js/privacy.js" type="text/javascript"></script>
 <style>.facadebtn{display:inline-block;width:60px;height:60px;background-color:#009de0;border-radius:50px;text-align:center;box-shadow: 2px 2px 3px #999;opacity:.3;}
