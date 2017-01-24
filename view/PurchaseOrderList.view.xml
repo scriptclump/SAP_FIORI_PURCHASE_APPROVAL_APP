@@ -1,0 +1,39 @@
+<!-- @author: K Satish Kumar -->
+<mvc:View xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="com.charterglobal.PurchaseOrderApproval.controller.PurchaseOrderList">
+	<App>
+		<pages>
+			<Page title="Purchase Order List" titleLevel="H2" showNavButton="true" navButtonPress="onMoveBack">
+				<content>
+					<SearchField width="100%" placeholder="Search" id="__field0" showRefreshButton="{device>/isNoTouch}" liveChange="onSearch"/>
+					<!--<PullToRefresh id="pullToRefresh" visible="{device>/isTouch}" refresh="onRefreshOrdersData"/>-->
+					<List id="idList" growing="true" growingThreshold="10" growingScrollToLoad="false" items="{/d/results}" growingTriggerText="Load more rows">
+						<items>
+							<ObjectListItem title="{VendorNo} {VendorName}" type="Navigation" press="onListItemPress" number="{TotalNetval}" numberUnit="{Currency}">
+								<firstStatus>
+									<ObjectStatus id="lastSyncDate" text="{path: 'DocumentDate', formatter:'.formatDate' }"/>
+								</firstStatus>
+								<attributes>
+									<!--<ObjectAttribute text="{VendorNo}"/>-->
+									<ObjectAttribute text="{PONumber}"/>
+								</attributes>
+							</ObjectListItem>
+						</items>
+						<infoToolbar>
+							<Toolbar active="false">
+								<Label text="Orders pending for approval."/>
+							</Toolbar>
+						</infoToolbar>
+					</List>
+				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Label text="Last refresh at:"/>
+						<Label text="" id="updatedOnID"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

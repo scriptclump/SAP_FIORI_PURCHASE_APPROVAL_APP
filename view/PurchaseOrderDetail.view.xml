@@ -1,0 +1,68 @@
+<!-- @author: K Satish Kumar -->
+<mvc:View controllerName="com.charterglobal.PurchaseOrderApproval.controller.PurchaseOrderDetail" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>HeaderAndItemDetails}" titleLevel="H2" floatingFooter="false" showFooter="true" showNavButton="true"
+				navButtonPress="onMoveBack">
+				<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
+					<content>
+						<FlexBox>
+							<ObjectHeader title="{/VendorName}">
+								<attributes>
+									<ObjectAttribute title="{i18n>vendorNo}" text="{/VendorNo}"/>
+									<ObjectAttribute title="{i18n>poNumber}" id="__poNumber" text="{/PONumber}"/>
+									<ObjectAttribute title="{i18n>documentDate}" text="{path: '/DocumentDate', formatter:'.formatDate' }"/>
+									<ObjectAttribute title="{i18n>netValue}" text="{/TotalNetval} {/Currency}"/>
+									<ObjectAttribute title="{i18n>actualPrice}" text="{/ActualPrice} {/Currency}"/>
+								</attributes>
+							</ObjectHeader>
+						</FlexBox>
+						<Table items="{/POItemSet/results}">
+							<columns>
+								<Column >
+									<Text text="{i18n>material}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>quantity}"/>
+								</Column>
+								<Column>
+									<Text text="{i18n>plant}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>deliveryDate}"/>
+								</Column>
+								<Column >
+									<Text text="{i18n>netValue}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem >
+									<cells>
+										<Text text="{Material}"/>
+										<Text text="{Quantity}" wrapping="false"/>
+										<Text text="{Plant} "/>
+										<Text text="{path: 'DeliveryDate', formatter:'.formatDate' }"/>
+										<Text text="{Netval}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+							<infoToolbar>
+								<Toolbar active="false">
+									<Label text="{i18n>poItems}"/>
+								</Toolbar>
+							</infoToolbar>
+						</Table>
+					</content>
+				</ScrollContainer>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Reject" width="50%" type="Reject" press="onRejectOrder"/>
+						<Button text="Accept" width="50%" type="Accept" press="onAcceptOrder"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

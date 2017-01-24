@@ -1,0 +1,22 @@
+<!-- @author: Basant Sharma -->
+<mvc:View controllerName="com.charterglobal.PurchaseOrderApproval.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
+	<Page title="" id="__loginPage" backgroundDesign="List">
+		<content>
+			<sap.ui.layout.form:SimpleForm editable="true" layout="ResponsiveGridLayout" xmlns:sap.ui.layout.form="sap.ui.layout.form"
+				xmlns:sap.ui.core="sap.ui.core" id="__loginFrm">
+				<sap.ui.layout.form:content>
+					<Label text="Username" id="__usernameLbl" design="Bold"/>
+					<Input width="100%" id="__username" filterSuggests="false" maxLength="80" name="username" placeholder="Enter the username" value=""
+						required="true"/>
+					<Label text="Password" id="__passwordLbl" design="Bold"/>
+					<Input width="100%" id="__password" filterSuggests="false" maxLength="80" name="password" placeholder="Enter the password" value=""
+						required="true" type="Password"/>
+					<Label width="100%" id="__label0"/>
+					<Button text="Login" width="100px" id="__loginBtn" activeIcon="sap-icon://unlocked" icon="sap-icon://locked" type="Emphasized"
+						press="onLogin" validationError="performlogin"/>
+				</sap.ui.layout.form:content>
+			</sap.ui.layout.form:SimpleForm>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,12 @@
+<mvc:View
+	controllerName="com.charterglobal.PurchaseOrderApproval.controller.App"
+	displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<App
+		id="PO_App"
+		busy="{appView>/busy}"
+		busyIndicatorDelay="{appView>/delay}">
+		<Label text = "Hello"/>
+		</App>
+</mvc:View>

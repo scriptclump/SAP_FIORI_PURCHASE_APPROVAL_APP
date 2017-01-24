@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+		<script src="resources/sap-ui-core.js" id="sap-ui-bootstrap" data-sap-ui-libs="sap.m" data-sap-ui-resourceroots="{&quot;com.charterglobal.PurchaseOrderApproval&quot;: &quot;./&quot;}" data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+		
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript">
+		  /*=====================================================================
+		   The following onError function is used to trap any errors that occur
+		   while the application is running. Cordova fails silently whenever it
+		   encounters an error in HTML or JavaScript code. So, with that being
+		   the case, developers cannot tell when/why their applications are
+		   failing. Any code error will cause the function to fire and display
+		   the error in an alert dialog.
+		   ======================================================================*/
+		  window.onerror = function(msg, url, line) {
+			var idx = url.lastIndexOf("/");
+			if (idx > -1) {
+			  url = url.substring(idx + 1);
+			}
+			alert("ERROR in " + url + " (line #" + line + ")\n" + msg);
+			console.error(msg);
+			return false;
+		  };
+		</script>
+
+		<script>
+				function getUrlParameterName(sParam)
+				{
+					var sPageURL = window.location.search.substring(1);
+					var sURLVariables = sPageURL.split('&');
+					for (var i = 0; i < sURLVariables.length; i++) 
+					{
+						var sParameterName = sURLVariables[i].split('=');
+						if (sParameterName[0] === sParam) 
+						{
+							return true;
+						}
+					}
+					return false;
+				} 
+			
+				sap.ui.localResources("view");
+				var app = new sap.m.App({initialPage:"idView1"});
+				
+				function startApp(context) {
+					//alert("startApp");
+					sap.ui.getCore().attachInit(function() {
+						new sap.m.Shell({
+							app: new sap.ui.core.ComponentContainer({
+								height : "100%",
+								name : "com.charterglobal.PurchaseOrderApproval"
+							})
+						}).placeAt("content");
+					});
+				}
+				
+				window.onload = function() {
+					if (window.cordova || getUrlParameterName("companionbuster")) {
+						jQuery.sap.require("com.charterglobal.PurchaseOrderApproval.devapp");
+						
+						var page = window.location.pathname.split("/").pop();
+		                if(page === "preview_hidden.html") {
+		                    window.sap_webide_FacadePreview = true;
+		                }
+						com.charterglobal.PurchaseOrderApproval.devapp.initialize();
+					}
+					else {
+						startApp();
+					}
+				}
+		</script>
+		
+	<script type="text/javascript">window.sap_webide_FacadePreview = true;</script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/cordovafacade/cordova.js" type="text/javascript"></script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/mobileextend/MessageDef.js" type="text/javascript"></script>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/mobileextend/MessageBridge.js" type="text/javascript"></script>
+<link href="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/css/mobileExtend.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+window.swa = {
+	"baseUrl": "https://cloud.warp.sap.com/tracker/",
+	"clicksEnabled": false,
+	"custom3": {
+		"ref": "NONE_SAP"
+	},
+	"custom6": {
+		"ref": "170119"
+	},
+	"custom7": {},
+	"custom8": {
+		"ref": null
+	},
+	"pubToken": "9cd40036-9be2-a644-a76b-4b955748f028",
+	"optOutCookieTimeout": 63113852,
+	"visitorCookieTimeout": 63113852,
+	"logger": false,
+	"loggingUrl": "https://cloud.warp.sap.com/tracker/",
+	"pageLoadEnabled": false,
+	"customEventsEnabled": true,
+	"hotkeysEnabled": false,
+	"loggingEnabled": true,
+	"dntLevel": 1,
+	"bannerEnabled": false,
+	"licenseUrl": "about:blank",
+	"bannerText": "<strong>This site uses <a href=\"about:blank\" target=\"_blank\">SAP Web Analytics</a>.</strong>",
+	"cookiesEnabled": true,
+	"optOutGroup": "9cd40036-9be2-a644-a76b-4b955748f028",
+	"sessionCookieTimeout": 1800,
+	"referralCookieTimeout": 15778463,
+	"frameExclusionSelector": ".swa_ignore",
+	"textExclusionSelector": "",
+	"referrerOfTop": false,
+	"test": false,
+	"currentEvent": "custom",
+	"_respectDNT": true,
+	"loggerLoaded": true,
+	"plugin": {
+		"clickedElements": [],
+		"customEventAddValues": []
+	},
+	"custom1": {
+		"ref": "HAT_PreviewOn"
+	},
+	"custom2": {
+		"ref": "USAGE"
+	},
+	"custom4": {
+		"ref": null
+	},
+	"custom5": {
+		"ref": null
+	},
+	"custom9": {
+		"ref": null
+	}
+}
+var href = window.location.href;
+var search = window.location.search;
+var url = href.replace(search, '');
+window._orgUrl = url.substr(0, url.lastIndexOf('/')) + '/index.html' + search;
+var sEventValue='Cordova Facade'
+if(search.indexOf('companionbuster')>=0){// Companion App
+	sEventValue = 'CompanionApp';
+};
+if (window.swa && typeof Piwik !='undefined') {
+	window.swa.trackCustomEvent('ide_preview_on', sEventValue);
+	if(sEventValue === 'CompanionApp') {
+		setTimeout(function(){window.location.assign(window._orgUrl)}, 500);
+	}
+} else {
+	var interval = setInterval(function() {
+		if (window.swa && typeof Piwik !='undefined') {
+			clearInterval(interval);
+			window.swa.trackCustomEvent('ide_preview_on', sEventValue);
+			if(sEventValue === 'CompanionApp') {
+				setTimeout(function(){window.location.assign(window._orgUrl)}, 500);
+			}
+		}
+	}, 100);
+}
+</script>
+<script src="https://cloud.warp.sap.com/tracker/js/privacy.js" type="text/javascript"></script>
+<style>.facadebtn{display:inline-block;width:60px;height:60px;background-color:#009de0;border-radius:50px;text-align:center;box-shadow: 2px 2px 3px #999;opacity:.3;}
+.facadebtn .sapUiIcon{color:#FFF;font-size:1.5rem;cursor:pointer;line-height:60px;width:60px;}
+.facadebtn:hover{opacity:1;}
+#interactive.viewport video{width:320px;height:240px;}
+#interactive.viewport .drawingBuffer{width:320px;height:240px;position:absolute;}
+</style>
+<script src="https://webide-b49666774.dispatcher.us1.hana.ondemand.com/plugins/pluginrepository/hybrid/cordovafacade/floatingButton.js" type="text/javascript"></script>
+</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>
