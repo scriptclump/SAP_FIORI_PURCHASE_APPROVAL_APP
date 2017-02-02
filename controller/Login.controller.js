@@ -22,10 +22,11 @@ sap.ui.define([
 		 */
 		onLogin: function() {
 		    var	oRouter = this.getRouter();
-			var username = this.byId("__username").getValue();
+			var str = this.byId("__username").getValue();
+			var username = str.trim(str.toUpperCase());
 			var password = this.byId("__password").getValue();
 			if( this._formValidation(username, password)){
-				var urlPrefix = "/destinations/sap_erp";
+				var urlPrefix = this.getServiceDestination();
 				var serviceUrl = urlPrefix +"/sap/opu/odata/SAP/ZFA_PO_USER_LOGIN_SRV/UserLoginSet?$filter=(Username eq '"+username+"' and Password eq '"+password+"')";
 				$.ajax({
 					url: serviceUrl,
@@ -38,7 +39,7 @@ sap.ui.define([
 				}).fail(function(data) {
 					sap.ui.getCore().setModel(username, "username");
 					MessageToast.show(data.responseJSON.error.message.value);
-					oRouter.navTo('dashboard');
+				//	oRouter.navTo('dashboard');
 				});
 			}
 		},

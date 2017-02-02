@@ -2,7 +2,17 @@
 <mvc:View controllerName="com.charterglobal.PurchaseOrderApproval.controller.Dashboard" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 	xmlns:layout="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
 	xmlns:viz.data="sap.viz.ui5.data" height="100%">
-	<Page title="{i18n>dashboardPageTitle}" id="__dashboard" backgroundDesign="List">
+	<Page title="" id="__dashboard" backgroundDesign="List">
+		<customHeader>
+			<Bar>
+				<!--<contentRight> custom icons-->
+				<!--	<Button icon="sap-icon://menu2" id="openMenu" press="handlePressOpenMenu" tooltip="Menu"/>-->
+				<!--</contentRight>-->
+				<contentMiddle>
+					<Image src="img/logo.png" height="34px"></Image>
+				</contentMiddle>
+			</Bar>
+		</customHeader>
 		<content>
 			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader=""
 				press="tilePress" frameType="Auto">
@@ -40,13 +50,8 @@
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Label text="Last refresh at:"/>
-				<Label text="{
-					path: '/d/results/0/UpdatedOn',
-					formatter:'.formatDate'
-					} {
-					path: '/d/results/0/UpdatedAt',
-					formatter:'.formatTime'
-					}" id="__updatedOnID"/>
+				<Label text="{ path: '/d/results/0/UpdatedOn', formatter:'.formatDate' } { path: '/d/results/0/UpdatedAt', formatter:'.formatTime' }"
+					id="__updatedOnID"/>
 			</Toolbar>
 		</footer>
 	</Page>

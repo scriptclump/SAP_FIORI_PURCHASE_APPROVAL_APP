@@ -71,6 +71,23 @@ sap.ui.define([
 				//alert("no"+loggedInUserName);
 				//oRouter.navTo('PurchaseOrderList');
 			}
+		},
+		
+		/**
+		 * Service destination as per appContext.
+		 * @author Basant Sharma
+		 * @public
+		 * @returns urlPrefix URL to prefix the services as per appContext
+		 */
+		getServiceDestination: function() {
+			var appContext = sap.ui.getCore().getModel("appContext");
+			var urlPrefix = "";
+			if (appContext !== undefined) {
+				urlPrefix = appContext.applicationEndpointURL;
+			} else {
+				urlPrefix = "/destinations/sap_erp";
+			}
+			return urlPrefix;
 		}
 	});
 });

@@ -2,9 +2,19 @@
 <mvc:View controllerName="com.charterglobal.PurchaseOrderApproval.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m">
 	<Page title="" id="__loginPage" backgroundDesign="List">
+		<customHeader>
+			<Bar>
+				<!--<contentRight> custom icons-->
+				<!--	<Button icon="sap-icon://menu2" id="openMenu" press="handlePressOpenMenu" tooltip="Menu"/>-->
+				<!--</contentRight>-->
+				<contentMiddle>
+					<Image src="img/logo.png" height="34px"></Image>
+				</contentMiddle>
+			</Bar>
+		</customHeader>
 		<content>
 			<sap.ui.layout.form:SimpleForm editable="true" layout="ResponsiveGridLayout" xmlns:sap.ui.layout.form="sap.ui.layout.form"
-				xmlns:sap.ui.core="sap.ui.core" id="__loginFrm">
+				xmlns:sap.ui.core="sap.ui.core" id="__loginFrm" backgroundDesign="Transparent">
 				<sap.ui.layout.form:content>
 					<Label text="Username" id="__usernameLbl" design="Bold"/>
 					<Input width="100%" id="__username" filterSuggests="false" maxLength="80" name="username" placeholder="Enter the username" value=""

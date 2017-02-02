@@ -36,8 +36,9 @@ sap.ui.define([
 		//	var lastRefreshAt = sap.ui.getCore().getModel('lastRefreshAt');	
 		//	cntrl.getView().setModel(lastRefreshAt);
 			//cntrl.byId("__updatedOnID").setValue(lastRefreshAt);
+			var urlPrefix = this.getServiceDestination();
 			var serviceUrl =
-				"/destinations/sap_erp/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '"+userName+"')&$expand=POItemSet&$format=json";
+				urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '"+userName+"')&$expand=POItemSet&$format=json";
 			$.ajax({
 				url: serviceUrl,
 				type: "GET",

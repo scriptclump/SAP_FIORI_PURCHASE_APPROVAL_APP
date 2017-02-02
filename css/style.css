@@ -1,6 +1,9 @@
-/* Enter your custom styles here */
-#__xmlview1--__loginPage-intHeader{
+/**
+ * Global css for current app
+ * @author Basant Sharma  
+ */
+/*#__xmlview1--__loginPage-intHeader, #__xmlview2--__dashboard-intHeader{
 	 background-image: url("/img/logo.png");
 	 background-repeat: no-repeat;
 	 background-position: center center;
-}
+} */

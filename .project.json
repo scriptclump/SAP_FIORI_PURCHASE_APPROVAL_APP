@@ -19,7 +19,7 @@
   ],
   "hybrid": {
     "appname": "PO Approval",
-    "appid": "com.charterglobal.PurchaseOrderApproval",
+    "appid": "com.charterglobal.POApprovalNotifications",
     "appdesc": "",
     "appversion": "0.0.1",
     "debugMode": true,
@@ -259,27 +259,27 @@
       },
       "kapsel": {
         "logon": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-logon",
           "localBuild": true
         },
         "appupdate": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-appupdate",
           "localBuild": true
         },
         "logger": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-logger",
           "localBuild": true
         },
         "settings": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-settings",
           "localBuild": true
         },
         "push": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-push",
           "localBuild": true
         },

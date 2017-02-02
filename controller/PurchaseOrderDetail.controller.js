@@ -30,13 +30,13 @@ sap.ui.define([
 			var self = this;
 
 			var dialog = new sap.m.Dialog({
-				title: 'Accept',
+				title: 'Confirmation',
 				type: 'Message',
 				content: new sap.m.Text({
-					text: 'Are you sure you want to accept?'
+					text: 'Are you sure to Release the order?'
 				}),
 				beginButton: new sap.m.Button({
-					text: 'Submit',
+					text: 'Accept',
 					press: function() {
 						self.SubmitUserOptions("05");
 						dialog.close();
@@ -58,10 +58,10 @@ sap.ui.define([
 		onRejectOrder: function() {
 			var self = this;
 			var dialog = new sap.m.Dialog({
-				title: 'Reject',
+				title: 'Confirmation',
 				type: 'Message',
 				content: [
-					new sap.m.Text({ text: 'Are you sure you want to reject?' }),
+					new sap.m.Text({ text: 'Are you sure to Reject the order?' }),
 					new sap.m.TextArea('submitDialogTextarea', {
 						liveChange: function(oEvent) {
 							var sText = oEvent.getParameter('value');
@@ -103,8 +103,8 @@ sap.ui.define([
 		onServiceCall: function(userName, token, poNumber) {
 			
 			var self = this;
-
-			var serviceUrl = "/destinations/sap_erp/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq '" + userName +
+			var urlPrefix = this.getServiceDestination();
+			var serviceUrl = urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq '" + userName +
 				"'and PONumber eq '" + poNumber + "'and POStatus eq '" + token + "'";
 
 			$.ajax({
@@ -184,7 +184,7 @@ sap.ui.define([
 		printSuccessMessage: function (successMsg, kToken, poNum) {
 			var self = this;
 			var promptMessage = "";
-			if(kToken==="05")  promptMessage = "Purchase order number:"+poNum+" has been successfully approved."; else promptMessage = "Purchase order number:"+poNum+" has been rejected"; 
+			if(kToken==="05")  promptMessage = "Purchase order "+poNum+" has been Released successfully."; else promptMessage = "Purchase order "+poNum+" has been Rejected"; 
 			var dialog = new sap.m.Dialog({
 				title: 'Success',
 				type: 'Message',

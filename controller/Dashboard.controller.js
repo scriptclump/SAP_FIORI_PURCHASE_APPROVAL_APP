@@ -30,7 +30,8 @@ sap.ui.define([
 			this.checkLogin();               
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
-			var serviceUrl = "/destinations/sap_erp/sap/opu/odata/sap/zfa_po_dash_board_srv/PODashboardSet?$filter=(Username eq '"+userName+"')";
+			var urlPrefix = this.getServiceDestination();
+			var serviceUrl = urlPrefix + "/sap/opu/odata/sap/zfa_po_dash_board_srv/PODashboardSet?$filter=(Username eq '"+userName+"')";
 			$.ajax({
 				url: serviceUrl,
 				type: "GET",

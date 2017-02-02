@@ -4,32 +4,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-		<script src="resources/sap-ui-core.js" id="sap-ui-bootstrap" data-sap-ui-libs="sap.m" data-sap-ui-resourceroots="{&quot;com.charterglobal.PurchaseOrderApproval&quot;: &quot;./&quot;}" data-sap-ui-theme="sap_bluecrystal">
+		<script src="resources/sap-ui-core.js" id="sap-ui-bootstrap" data-sap-ui-libs="sap.m" data-sap-ui-xx-bindingsyntax="complex" data-sap-ui-resourceroots="{&quot;com.charterglobal.PurchaseOrderApproval&quot;: &quot;./&quot;}" data-sap-ui-theme="sap_bluecrystal">
 		</script>
 		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
 		
 		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript">
-		  /*=====================================================================
-		   The following onError function is used to trap any errors that occur
-		   while the application is running. Cordova fails silently whenever it
-		   encounters an error in HTML or JavaScript code. So, with that being
-		   the case, developers cannot tell when/why their applications are
-		   failing. Any code error will cause the function to fire and display
-		   the error in an alert dialog.
-		   ======================================================================*/
-		  window.onerror = function(msg, url, line) {
-			var idx = url.lastIndexOf("/");
-			if (idx > -1) {
-			  url = url.substring(idx + 1);
-			}
-			alert("ERROR in " + url + " (line #" + line + ")\n" + msg);
-			console.error(msg);
-			return false;
-		  };
-		</script>
-
 		<script>
+				jQuery.sap.require("com.charterglobal.PurchaseOrderApproval.devapp");
 				function getUrlParameterName(sParam)
 				{
 					var sPageURL = window.location.search.substring(1);
@@ -44,12 +25,10 @@
 					}
 					return false;
 				} 
-			
-				sap.ui.localResources("view");
-				var app = new sap.m.App({initialPage:"idView1"});
-				
-				function startApp(context) {
+
+				function startApp(appContext) {
 					//alert("startApp");
+					sap.ui.getCore().setModel(appContext, "appContext");
 					sap.ui.getCore().attachInit(function() {
 						new sap.m.Shell({
 							app: new sap.ui.core.ComponentContainer({

@@ -59,7 +59,7 @@
 					<Toolbar>
 						<ToolbarSpacer/>
 						<Button text="Reject" width="50%" type="Reject" press="onRejectOrder"/>
-						<Button text="Accept" width="50%" type="Accept" press="onAcceptOrder"/>
+						<Button text="Release" width="50%" type="Accept" press="onAcceptOrder"/>
 					</Toolbar>
 				</footer>
 			</Page>
