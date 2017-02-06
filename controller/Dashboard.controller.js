@@ -26,7 +26,10 @@ sap.ui.define([
 		 * @param oEvent
 		 */
 		onDisplay: function(oEvent) {
-		
+			var dialog = new sap.m.BusyDialog({
+
+			});
+			dialog.open();
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
 			var urlPrefix = this.getServiceDestination();
@@ -37,6 +40,7 @@ sap.ui.define([
 				async: true,
 				dataType: "json"
 			}).done(function(data) {
+				dialog.close();
 				// var oVizFrame = cntrl.oVizFrame = cntrl.getView().byId("oVizFrame");
 				// //cntrl.getView().byId("totalPendingOrders").setValue("140");
 				// oVizFrame.setVizProperties({

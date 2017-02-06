@@ -15,9 +15,19 @@
 		</customHeader>
 		<content>
 			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader=""
+			frameType="Auto">
+				<tileContent>
+					<TileContent id="tileNameId" footer="">
+						<content>
+							<ImageContent src="sap-icon://manager"/>
+						</content>
+					</TileContent>
+				</tileContent>
+			</GenericTile>
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileCountId" header="Total pending orders" subheader=""
 				press="tilePress" frameType="Auto">
 				<tileContent>
-					<TileContent id="tileCntId" footer="Pending Orders">
+					<TileContent id="tileCntId" footer="">
 						<content>
 							<NumericContent truncateValueTo="8" id="totalPendingOrders" valueColor="Good" value=""/>
 						</content>

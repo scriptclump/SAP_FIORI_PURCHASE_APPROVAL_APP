@@ -46,7 +46,7 @@ sap.ui.define([
 				async: true,
 				dataType: "json"
 			}).done(function(data) {
-				//dialog.close();
+				dialog.close();
 				cntrl.setListDataLatestFirst(data);
 			}).fail(function(error) {
 				dialog.close();

@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog id="notificationDialog" title="Alert">
+		<content>
+			<Panel id="notificationPanel" class="sapUiResponsiveMargin" width="auto">
+				<headerToolbar>
+					<Toolbar height="3rem">
+						<Title text="Notification"/>
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<Text id = "notificationDialogText" text="{/notificationText}"/>
+				</content>
+			</Panel>
+			<Text id="refreshText" text="{/refreshText}"/>
+		</content>
+		<beginButton>
+			<Button
+				text="OK" id="notificationOkButton" press="onCloseNotificationDialog"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

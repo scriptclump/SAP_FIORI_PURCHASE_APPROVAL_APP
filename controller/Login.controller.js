@@ -11,6 +11,8 @@ sap.ui.define([
 	return BaseController.extend("com.charterglobal.PurchaseOrderApproval.controller.Login", {
 
 		onInit: function() {
+			
+			this.registerForPush();
 
 		},
 		/**
@@ -19,9 +21,14 @@ sap.ui.define([
 		 * @author Basant Sharma
 		 */
 		onLogin: function() {
+			var dialog = new sap.m.BusyDialog({
+
+			});
+			dialog.open();
 			var oRouter = this.getRouter();
 			var str = this.byId("__username").getValue();
-			var username = str.trim(str.toUpperCase());
+			str = str.toUpperCase();
+			var username = str.trim();
 			var password = this.byId("__password").getValue();
 			if (this._formValidation(username, password)) {
 				var urlPrefix = this.getServiceDestination();
@@ -36,6 +43,7 @@ sap.ui.define([
 					sap.ui.getCore().setModel(username, "username");
 					var store = new sap.EncryptedStorage("localStore");
 					store.setItem("localUserName", username);
+					dialog.close();
 					oRouter.navTo('dashboard');
 				}).fail(function(data) {
 					MessageToast.show(data.responseJSON.error.message.value);
