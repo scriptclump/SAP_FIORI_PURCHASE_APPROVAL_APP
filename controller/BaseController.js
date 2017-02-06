@@ -65,11 +65,9 @@ sap.ui.define([
 			var loggedInUserName = sap.ui.getCore().getModel("username");
 		
 			if(loggedInUserName === "" || loggedInUserName === undefined ){
-				//alert("yes"+loggedInUserName);
-				//oRouter.navTo('/#');
+				//oRouter.navTo('login');
 			} else{
-				//alert("no"+loggedInUserName);
-				//oRouter.navTo('PurchaseOrderList');
+				oRouter.navTo('Dashboard');
 			}
 		},
 		

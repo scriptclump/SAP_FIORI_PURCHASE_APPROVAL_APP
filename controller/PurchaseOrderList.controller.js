@@ -26,19 +26,20 @@ sap.ui.define([
 		 * @param oEvent
 		 */
 		onDisplay: function(oEvent) {
-			
-			var dialog = new sap.m.BusyDialog({ 
-				
+
+			var dialog = new sap.m.BusyDialog({
+
 			});
-			dialog.open();              
+			dialog.open();
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
-		//	var lastRefreshAt = sap.ui.getCore().getModel('lastRefreshAt');	
-		//	cntrl.getView().setModel(lastRefreshAt);
+			//	var lastRefreshAt = sap.ui.getCore().getModel('lastRefreshAt');	
+			//	cntrl.getView().setModel(lastRefreshAt);
 			//cntrl.byId("__updatedOnID").setValue(lastRefreshAt);
 			var urlPrefix = this.getServiceDestination();
 			var serviceUrl =
-				urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '"+userName+"')&$expand=POItemSet&$format=json";
+				urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '" + userName +
+				"')&$expand=POItemSet&$format=json";
 			$.ajax({
 				url: serviceUrl,
 				type: "GET",
@@ -46,13 +47,18 @@ sap.ui.define([
 				dataType: "json"
 			}).done(function(data) {
 				//dialog.close();
-				var dataModel = new JSONModel(data);
-				cntrl.getView().setModel(dataModel);
-				cntrl.byId("updatedOnID").setText(sap.ui.getCore().getModel('lastRefreshAt'));
+				cntrl.setListDataLatestFirst(data);
 			}).fail(function(error) {
 				dialog.close();
 				MessageToast.show(error.responseJSON.error.message.value);
 			});
+		},
+		setListDataLatestFirst: function(modelData) {
+
+			var dataModel = new JSONModel(modelData);
+			this.getView().setModel(dataModel);
+			this.byId("updatedOnID").setText(sap.ui.getCore().getModel('lastRefreshAt'));
+
 		},
 		onSearch: function(oEvt) {
 
@@ -76,7 +82,7 @@ sap.ui.define([
 		onRefreshOrdersData: function() {
 
 		},
-		onSortPressed: function(oEvent) {
+		onSortingData: function() {
 
 			var sortOrder = sap.ui.getCore().getModel("sortOrderDescending");
 			var sortBy = [];

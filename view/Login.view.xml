@@ -16,7 +16,7 @@
 			<sap.ui.layout.form:SimpleForm editable="true" layout="ResponsiveGridLayout" xmlns:sap.ui.layout.form="sap.ui.layout.form"
 				xmlns:sap.ui.core="sap.ui.core" id="__loginFrm" backgroundDesign="Transparent">
 				<sap.ui.layout.form:content>
-					<Label text="Username" id="__usernameLbl" design="Bold"/>
+					<Label text="SAP User ID" id="__usernameLbl" design="Bold"/>
 					<Input width="100%" id="__username" filterSuggests="false" maxLength="80" name="username" placeholder="Enter the username" value=""
 						required="true"/>
 					<Label text="Password" id="__passwordLbl" design="Bold"/>

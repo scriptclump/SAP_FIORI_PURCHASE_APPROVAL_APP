@@ -1,0 +1,5 @@
+<mvc:View controllerName="com.charterglobal.PurchaseOrderApproval.controller.SplashScreen" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
+	<Page title="" id="__splashScreen" showHeader="false">
+	</Page>
+</mvc:View>

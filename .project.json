@@ -284,7 +284,7 @@
           "localBuild": true
         },
         "encryptedstorage": {
-          "selected": false,
+          "selected": true,
           "registry": "kapsel-plugin-encryptedstorage",
           "localBuild": true
         },

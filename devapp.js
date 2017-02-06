@@ -37,7 +37,15 @@ com.charterglobal.PurchaseOrderApproval.devapp = {
 					var context = {
 						"serverHost": that.smpInfo.server,
 						"https": data.hybrid.msType === 0 ? "true" : "false",
-						"serverPort": that.smpInfo.port
+						"serverPort": that.smpInfo.port,
+						"auth": [{
+							"type": "saml2.web.post",
+							"config": {
+								"saml2.web.post.authchallengeheader.name": "com.sap.cloud.security.login",
+								"saml2.web.post.finish.endpoint.uri": "/SAMLAuthLauncher",
+								"saml2.web.post.finish.endpoint.redirectparam": "finishEndpointParam"
+							}
+						}]
 					};
 					that.devLogon = new com.charterglobal.PurchaseOrderApproval.devlogon();
 					that.devLogon.doLogonInit(context, that.smpInfo.appID);

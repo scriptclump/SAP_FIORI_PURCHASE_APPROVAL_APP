@@ -27,7 +27,6 @@ sap.ui.define([
 		 */
 		onDisplay: function(oEvent) {
 		
-			this.checkLogin();               
 			var cntrl = this;
 			var userName = sap.ui.getCore().getModel('username');
 			var urlPrefix = this.getServiceDestination();
@@ -38,21 +37,21 @@ sap.ui.define([
 				async: true,
 				dataType: "json"
 			}).done(function(data) {
-				var oVizFrame = cntrl.oVizFrame = cntrl.getView().byId("oVizFrame");
-				//cntrl.getView().byId("totalPendingOrders").setValue("140");
-				oVizFrame.setVizProperties({
-					legend: {
-						title: {
-							visible: false
-						}
-					},
-					title: {
-						visible: false
-					}
-				});
+				// var oVizFrame = cntrl.oVizFrame = cntrl.getView().byId("oVizFrame");
+				// //cntrl.getView().byId("totalPendingOrders").setValue("140");
+				// oVizFrame.setVizProperties({
+				// 	legend: {
+				// 		title: {
+				// 			visible: false
+				// 		}
+				// 	},
+				// 	title: {
+				// 		visible: false
+				// 	}
+				// });
 
 				var dataModel = new JSONModel(data);
-				oVizFrame.setModel(dataModel);
+				//oVizFrame.setModel(dataModel);
 				var totalPendingOrders = 0;
 				for (var i = 0; i < dataModel.oData.d.results.length; i++) {
 					totalPendingOrders += dataModel.oData.d.results[i].NoOfDocs;

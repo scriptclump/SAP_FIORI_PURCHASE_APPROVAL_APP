@@ -73,6 +73,11 @@
 			"routes": [
 				{
 					"pattern": "",
+					"name": "SplashScreen",
+					"target": "SplashScreen"
+				},
+				{
+					"pattern": "login",
 					"name": "login",
 					"target": "login"
 				},
@@ -93,6 +98,9 @@
 				}
 			],
 			"targets": {
+				"SplashScreen": {
+					"viewName": "SplashScreen"
+				},
 				"login": {
 					"viewName": "Login"
 				},

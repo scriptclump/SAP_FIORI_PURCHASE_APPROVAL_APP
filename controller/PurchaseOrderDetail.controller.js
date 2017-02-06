@@ -33,10 +33,10 @@ sap.ui.define([
 				title: 'Confirmation',
 				type: 'Message',
 				content: new sap.m.Text({
-					text: 'Are you sure to Release the order?'
+					text: 'Are you sure you want to release the order?'
 				}),
 				beginButton: new sap.m.Button({
-					text: 'Accept',
+					text: 'Ok',
 					press: function() {
 						self.SubmitUserOptions("05");
 						dialog.close();
@@ -61,12 +61,14 @@ sap.ui.define([
 				title: 'Confirmation',
 				type: 'Message',
 				content: [
-					new sap.m.Text({ text: 'Are you sure to Reject the order?' }),
+					new sap.m.Text({
+						text: 'Are you sure you want to reject the order?'
+					}),
 					new sap.m.TextArea('submitDialogTextarea', {
 						liveChange: function(oEvent) {
 							var sText = oEvent.getParameter('value');
 							var parent = oEvent.getSource().getParent();
- 
+
 							parent.getBeginButton().setEnabled(sText.length > 0);
 						},
 						width: '100%',
@@ -74,7 +76,7 @@ sap.ui.define([
 					})
 				],
 				beginButton: new sap.m.Button({
-					text: 'Reject',
+					text: 'Ok',
 					enabled: false,
 					press: function() {
 						// var sText = sap.ui.getCore().byId('submitDialogTextarea').getValue();
@@ -101,7 +103,7 @@ sap.ui.define([
 			this.onServiceCall(managerName, kToken, poNumber);
 		},
 		onServiceCall: function(userName, token, poNumber) {
-			
+
 			var self = this;
 			var urlPrefix = this.getServiceDestination();
 			var serviceUrl = urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_RELEASE_SRV/ReleasePOSet?$filter=Username eq '" + userName +
@@ -159,7 +161,7 @@ sap.ui.define([
 			}
 
 		},
-		printErrorMessage: function (errorMsg) {
+		printErrorMessage: function(errorMsg) {
 			var errorMessage = "Operation failed.Please try again !";
 			var dialog = new sap.m.Dialog({
 				title: 'Error',
@@ -170,7 +172,7 @@ sap.ui.define([
 				}),
 				beginButton: new sap.m.Button({
 					text: 'OK',
-					press: function () {
+					press: function() {
 						dialog.close();
 					}
 				}),
@@ -178,13 +180,17 @@ sap.ui.define([
 					dialog.destroy();
 				}
 			});
- 
+
 			dialog.open();
 		},
-		printSuccessMessage: function (successMsg, kToken, poNum) {
+		printSuccessMessage: function(successMsg, kToken, poNum) {
 			var self = this;
 			var promptMessage = "";
-			if(kToken==="05")  promptMessage = "Purchase order "+poNum+" has been Released successfully."; else promptMessage = "Purchase order "+poNum+" has been Rejected"; 
+			if (kToken === "05") {
+				promptMessage = "Purchase order " + poNum + " Released successfully.";
+			} else {
+				promptMessage = "Purchase order " + poNum + " is Rejected";
+			}
 			var dialog = new sap.m.Dialog({
 				title: 'Success',
 				type: 'Message',
@@ -194,7 +200,7 @@ sap.ui.define([
 				}),
 				beginButton: new sap.m.Button({
 					text: 'OK',
-					press: function () {
+					press: function() {
 						dialog.close();
 						self.onMoveBack();
 					}
@@ -203,7 +209,7 @@ sap.ui.define([
 					dialog.destroy();
 				}
 			});
- 
+
 			dialog.open();
 		}
 
