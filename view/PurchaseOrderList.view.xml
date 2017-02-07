@@ -9,13 +9,13 @@
 					<!--<PullToRefresh id="pullToRefresh" visible="{device>/isTouch}" refresh="onRefreshOrdersData"/>-->
 					<List id="idList" growing="true" growingThreshold="10" growingScrollToLoad="false" items="{/d/results}" growingTriggerText="Load more rows">
 						<items>
-							<ObjectListItem title="{VendorNo} {VendorName}" id="__venderDetails" type="Active" press="onListItemPress" number="{TotalNetval}" numberUnit="{Currency}">
+							<ObjectListItem title="{VendorName}" id="__venderDetails" type="Active" press="onListItemPress" number="{TotalNetval}" numberUnit="{Currency}">
 								<firstStatus>
 									<ObjectStatus id="lastSyncDate" text="{path: 'DocumentDate', formatter:'.formatDate' }"/>
 								</firstStatus>
 								<attributes>
-									<!--<ObjectAttribute text="{VendorNo}"/>-->
-									<ObjectAttribute text="{PONumber}"/>
+									<ObjectAttribute text="Vendor No: {VendorNo}"/>
+									<ObjectAttribute text="PO Number: {PONumber}"/>
 								</attributes>
 							</ObjectListItem>
 						</items>

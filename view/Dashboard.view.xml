@@ -15,7 +15,7 @@
 		</customHeader>
 		<content>
 			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader=""
-			frameType="Auto">
+				frameType="Auto">
 				<tileContent>
 					<TileContent id="tileNameId" footer="">
 						<content>
@@ -34,6 +34,29 @@
 					</TileContent>
 				</tileContent>
 			</GenericTile>
+			<Table items="{/d/results}" class="sapUiTinyMarginTop">
+				<columns>
+					<Column>
+						<Text text="{i18n>category}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>poOrders}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem >
+						<cells>
+							<Text text="{PurDocType}"/>
+							<Text text="{NoOfDocs}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<infoToolbar>
+					<Toolbar active="false">
+						<Label text="{i18n>categorizedReport}"/>
+					</Toolbar>
+				</infoToolbar>
+			</Table>
 			<!--<layout:FixFlex id="chartFixFlex" minFlexSize="250">-->
 			<!--	<layout:flexContent>-->
 			<!--		<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"-->

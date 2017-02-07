@@ -162,7 +162,7 @@ sap.ui.define([
 
 		},
 		printErrorMessage: function(errorMsg) {
-			var errorMessage = "Operation failed.Please try again !";
+			var errorMessage = "Operation failed. Please try again !";
 			var dialog = new sap.m.Dialog({
 				title: 'Error',
 				type: 'Message',
@@ -187,9 +187,9 @@ sap.ui.define([
 			var self = this;
 			var promptMessage = "";
 			if (kToken === "05") {
-				promptMessage = "Purchase order " + poNum + " Released successfully.";
+				promptMessage = "Purchase order " + poNum + " released successfully.";
 			} else {
-				promptMessage = "Purchase order " + poNum + " is Rejected";
+				promptMessage = "Purchase order " + poNum + " is rejected";
 			}
 			var dialog = new sap.m.Dialog({
 				title: 'Success',

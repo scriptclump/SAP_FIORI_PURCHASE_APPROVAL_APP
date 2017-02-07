@@ -20,12 +20,18 @@ sap.ui.define([
 			var router = this.getOwnerComponent().getRouter();
 			var target = router.getTarget("dashboard");
 			target.attachDisplay(this.onDisplay, this);
+				var table = new sap.m.Table();
+			table.addStyleClass("myCustomTable");
 		},
 		/** Fires evey time view is displayed.
 		 *
 		 * @param oEvent
 		 */
 		onDisplay: function(oEvent) {
+			
+			var table = new sap.m.Table();
+			table.addStyleClass("myCustomTable");
+			
 			var dialog = new sap.m.BusyDialog({
 
 			});

@@ -5,8 +5,9 @@
  */
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast"
-], function(Controller, MessageToast) {
+], function(Controller, JSONModel, MessageToast) {
 	"use strict";
 
 	return Controller.extend("com.charterglobal.PurchaseOrderApproval.controller.BaseController", {
@@ -130,7 +131,7 @@ sap.ui.define([
 			sap.Push.updateWithDeviceToken(devicetoken, jQuery.proxy(this.devicetokenSent, this));
 		},
 		devicetokenSent: function(result) {
-			alert("device token sent to hcpms" + JSON.stringify(result));
+			//alert("device token sent to hcpms" + JSON.stringify(result));
 		},
 		regFailure: function(errorInfo) {
 			alert("Error while registering.  " + JSON.stringify(errorInfo));
@@ -138,28 +139,7 @@ sap.ui.define([
 		},
 		processNotification: function(notification) {
 			// alert("in processNotification: " + JSON.stringify(notification));
-			var notificationData = JSON.stringify(notification);
-			var text1 = notificationData.notification.alert;
-			var text2 = notificationData.notification.alert.data;
-			var messageText = text1 + text2;
-			var dialog = new sap.m.Dialog({
-				title: 'Notification Alert!',
-				type: 'Message',
-				content: new sap.m.Text({
-					text: messageText
-				}),
-				beginButton: new sap.m.Button({
-					text: 'Ok',
-					press: function() {
-						dialog.close();
-					}
-				}),
-				afterClose: function() {
-					dialog.destroy();
-				}
-			});
-			dialog.open();
-			//this.checkAnddisplayNotification(notification);
+			this.checkAnddisplayNotification(notification);
 			
 		},
 		checkAnddisplayNotification: function(payLoad) {
@@ -175,12 +155,12 @@ sap.ui.define([
 					var astr = "\"alert\"";
 
 					var i1 = payLoad.indexOf(astr) + astr.length;
-					alert("i1:" + i1);
+					//alert("i1:" + i1);
 					var dstr = "\"data\"";
 					var i2 = payLoad.indexOf(dstr);
-					alert("i2:" + i2);
+					//alert("i2:" + i2);
 					var alertText = payLoad.substring((i1 + 2), (i2 - 3));
-					alert(alertText);
+					//alert(alertText);
 					if (i1 > 0 && i2 > 0 && (i2 > i1)) {
 						basectlr.displayNotification(alertText);
 					}
@@ -194,7 +174,7 @@ sap.ui.define([
 		 * 
 		 * @
 		 * @  PUSH NOTIFICATION METHOD
-		 * @  unRegisterFromPush
+		 * @  UNRegisterFromPush
 		 */
 		unRegisterFromPush: function(callbackFunction) {
 			var deviceos = sap.ui.Device.os.name;
@@ -217,20 +197,40 @@ sap.ui.define([
 		displayNotification: function(notificationText) {
 			
 			if (notificationText !== undefined && notificationText !== "") {
-				var notificationDialog = sap.ui.getCore().byId('notificationDialog');
-				if (notificationDialog === undefined) {
-					var basectlr = this;
-					var dialog = sap.ui.xmlfragment("com.charterglobal.PurchaseOrderApproval.view.PushNotificationDialog", basectlr);
-					var notificationTextModel = sap.ui.getCore().getModel("notificationText");
-					notificationTextModel.setProperty("/notificationText", notificationText);
-					//set null to refreshText field
-					notificationTextModel.setProperty("/refreshText", "");
-					dialog.setModel(notificationTextModel);
-					dialog.open();
-				} else {
-					var dialogText = sap.ui.getCore().byId('notificationDialogText');
-					dialogText.setText(dialogText.getText() + "\n\n" + notificationText);
+				
+				var dialog = new sap.m.Dialog({
+				title: 'Notification Alert!',
+				type: 'Message',
+				content: new sap.m.Text({
+					text: notificationText
+				}),
+				beginButton: new sap.m.Button({
+					text: 'Ok',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
 				}
+			});
+			dialog.open();
+				
+				
+				//var notificationDialog = sap.ui.getCore().byId('notificationDialog');
+				// if (notificationDialog === undefined) {
+				// 	var basectlr = this;
+				// 	var dialog = sap.ui.xmlfragment("com.charterglobal.PurchaseOrderApproval.view.PushNotificationDialog", basectlr);
+				// 	var notificationTextModel = sap.ui.getCore().getModel("notificationText");
+				// 	notificationTextModel.setProperty("/notificationText", notificationText);
+				// 	//set null to refreshText field
+				// 	notificationTextModel.setProperty("/refreshText", "");
+				// 	dialog.setModel(notificationTextModel);
+				// 	dialog.open();
+				// } else {
+				// 	var dialogText = sap.ui.getCore().byId('notificationDialogText');
+				// 	dialogText.setText(dialogText.getText() + "\n\n" + notificationText);
+				// }
 			}
 		}
 	});
