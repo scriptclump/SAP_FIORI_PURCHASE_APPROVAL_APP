@@ -8,7 +8,7 @@
 				<!--	<Button icon="sap-icon://menu2" id="openMenu" press="handlePressOpenMenu" tooltip="Menu"/>-->
 				<!--</contentRight>-->
 				<contentMiddle>
-					<Image src="img/logo.png" height="34px"></Image>
+					<Image src="img/CGILogo.png" height="34px"></Image>
 				</contentMiddle>
 			</Bar>
 		</customHeader>

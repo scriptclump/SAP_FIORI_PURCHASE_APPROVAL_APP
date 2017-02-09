@@ -26,9 +26,7 @@ sap.ui.define([
 			this.getView().setModel(selectedDeatils);
 		},
 		onAcceptOrder: function() {
-
 			var self = this;
-
 			var dialog = new sap.m.Dialog({
 				title: 'Confirmation',
 				type: 'Message',
@@ -52,7 +50,6 @@ sap.ui.define([
 					dialog.destroy();
 				}
 			});
-
 			dialog.open();
 		},
 		onRejectOrder: function() {

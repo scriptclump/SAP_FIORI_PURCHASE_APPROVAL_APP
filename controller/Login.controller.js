@@ -4,17 +4,12 @@
  */
 sap.ui.define([
 	"com/charterglobal/PurchaseOrderApproval/controller/BaseController",
-	"sap/m/MessageToast",
-	"sap/ui/model/json/JSONModel"
-], function(BaseController, MessageToast, JSONModel) {
+	"sap/m/MessageToast"
+], function(BaseController, MessageToast) {
 	"use strict";
 	return BaseController.extend("com.charterglobal.PurchaseOrderApproval.controller.Login", {
 
-		onInit: function() {
-			
-			this.registerForPush();
-
-		},
+		onInit: function() {},
 		/**
 		 * Checks SAP user login credentials
 		 * @public
@@ -26,6 +21,7 @@ sap.ui.define([
 			});
 			dialog.open();
 			var oRouter = this.getRouter();
+			var cntrl = this;
 			var str = this.byId("__username").getValue();
 			str = str.toUpperCase();
 			var username = str.trim();
@@ -39,15 +35,18 @@ sap.ui.define([
 					type: "GET",
 					async: true,
 					dataType: "json"
-				}).done(function(data) {
+				}).done(function() {
 					sap.ui.getCore().setModel(username, "username");
-					var store = new sap.EncryptedStorage("localStore");
-					store.setItem("localUserName", username);
-					dialog.close();
-					oRouter.navTo('dashboard');
+					if (!sap.ui.Device.system.desktop) {
+						//Subscribing for Push
+						cntrl.registerForPush();
+					} else {
+						dialog.close();
+						// Push reg is not applicable for browser, So navigating directly to dashboard page
+						oRouter.navTo('dashboard');
+					}
 				}).fail(function(data) {
 					MessageToast.show(data.responseJSON.error.message.value);
-					//	oRouter.navTo('dashboard');
 				});
 			}
 		},

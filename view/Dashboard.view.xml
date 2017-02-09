@@ -5,16 +5,16 @@
 	<Page title="" id="__dashboard" backgroundDesign="List">
 		<customHeader>
 			<Bar>
-				<!--<contentRight> custom icons-->
-				<!--	<Button icon="sap-icon://menu2" id="openMenu" press="handlePressOpenMenu" tooltip="Menu"/>-->
-				<!--</contentRight>-->
+				<contentRight>
+					<Button icon="sap-icon://log" id="logout" press="onLogout" tooltip="Logout"/>
+				</contentRight>
 				<contentMiddle>
-					<Image src="img/logo.png" height="34px"></Image>
+					<Image src="img/CGILogo.png" height="34px"></Image>
 				</contentMiddle>
 			</Bar>
 		</customHeader>
 		<content>
-			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader=""
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader="you have"
 				frameType="Auto">
 				<tileContent>
 					<TileContent id="tileNameId" footer="">
@@ -24,7 +24,7 @@
 					</TileContent>
 				</tileContent>
 			</GenericTile>
-			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileCountId" header="Total pending orders" subheader=""
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileCountId" header="Total pending " subheader="orders"
 				press="tilePress" frameType="Auto">
 				<tileContent>
 					<TileContent id="tileCntId" footer="">
@@ -34,7 +34,7 @@
 					</TileContent>
 				</tileContent>
 			</GenericTile>
-			<Table items="{/d/results}" class="sapUiTinyMarginTop">
+			<Table items="{/d/results}" class="sapUiTinyMargin">
 				<columns>
 					<Column>
 						<Text text="{i18n>category}"/>
@@ -57,27 +57,27 @@
 					</Toolbar>
 				</infoToolbar>
 			</Table>
-			<!--<layout:FixFlex id="chartFixFlex" minFlexSize="250">-->
-			<!--	<layout:flexContent>-->
-			<!--		<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"-->
-			<!--			legendVisible="true" height="100%" width="100%">-->
-			<!--			<viz:dataset>-->
-			<!--				<viz.data:FlattenedDataset data="{/d/results}">-->
-			<!--					<viz.data:dimensions>-->
-			<!--						<viz.data:DimensionDefinition name="Category" value="{PurDocType}"/>-->
-			<!--					</viz.data:dimensions>-->
-			<!--					<viz.data:measures>-->
-			<!--						<viz.data:MeasureDefinition group="1" name="Total Orders" value="{NoOfDocs}"/>-->
-			<!--					</viz.data:measures>-->
-			<!--				</viz.data:FlattenedDataset>-->
-			<!--			</viz:dataset>-->
-			<!--			<viz:feeds>-->
-			<!--				<viz.feeds:FeedItem id="value1" uid="size" type="Measure" values="Total Orders"/>-->
-			<!--				<viz.feeds:FeedItem uid="color" type="Dimension" values="Category"/>-->
-			<!--			</viz:feeds>-->
-			<!--		</viz:VizFrame>-->
-			<!--	</layout:flexContent>-->
-			<!--</layout:FixFlex>-->
+			<layout:FixFlex id="chartFixFlex" minFlexSize="250">
+				<layout:flexContent>
+					<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"
+						legendVisible="true" height="100%" width="100%">
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/d/results}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Category" value="{PurDocType}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition group="1" name="Total Orders" value="{NoOfDocs}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem id="value1" uid="size" type="Measure" values="Total Orders"/>
+							<viz.feeds:FeedItem uid="color" type="Dimension" values="Category"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</layout:flexContent>
+			</layout:FixFlex>
 		</content>
 		<footer>
 			<Toolbar>
