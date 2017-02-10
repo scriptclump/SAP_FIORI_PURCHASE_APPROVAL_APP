@@ -14,30 +14,33 @@
 			</Bar>
 		</customHeader>
 		<content>
-			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="{/d/results/0/FullName}" subheader="you have"
-				frameType="Auto">
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileId" header="Welcome {/d/results/0/FullName} \n you have"
+				press="tilePressWithDate" frameType="Auto">
 				<tileContent>
 					<TileContent id="tileNameId" footer="">
 						<content>
-							<ImageContent src="sap-icon://manager"/>
+							<NumericContent truncateValueTo="8" id="todaysPendingOrders" valueColor="Good" value="{/d/results/0/TodaysCount}"/>
 						</content>
 					</TileContent>
 				</tileContent>
 			</GenericTile>
-			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileCountId" header="Total pending " subheader="orders"
+			<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="tileCountId" header="Total pending \n orders" 
 				press="tilePress" frameType="Auto">
 				<tileContent>
 					<TileContent id="tileCntId" footer="">
 						<content>
-							<NumericContent truncateValueTo="8" id="totalPendingOrders" valueColor="Good" value=""/>
+							<NumericContent truncateValueTo="8" id="totalPendingOrders" valueColor="Good" value="{/d/results/0/TotalCount}"/>
 						</content>
 					</TileContent>
 				</tileContent>
 			</GenericTile>
-			<Table items="{/d/results}" class="sapUiTinyMargin">
+			<Table items="{/d/results}" class="sapUiTinyMarginTop">
 				<columns>
 					<Column>
 						<Text text="{i18n>category}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>description}"/>
 					</Column>
 					<Column>
 						<Text text="{i18n>poOrders}"/>
@@ -47,6 +50,7 @@
 					<ColumnListItem >
 						<cells>
 							<Text text="{PurDocType}"/>
+							<Text text="{Description}"/>
 							<Text text="{NoOfDocs}"/>
 						</cells>
 					</ColumnListItem>
@@ -57,27 +61,27 @@
 					</Toolbar>
 				</infoToolbar>
 			</Table>
-			<layout:FixFlex id="chartFixFlex" minFlexSize="250">
-				<layout:flexContent>
-					<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"
-						legendVisible="true" height="100%" width="100%">
-						<viz:dataset>
-							<viz.data:FlattenedDataset data="{/d/results}">
-								<viz.data:dimensions>
-									<viz.data:DimensionDefinition name="Category" value="{PurDocType}"/>
-								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition group="1" name="Total Orders" value="{NoOfDocs}"/>
-								</viz.data:measures>
-							</viz.data:FlattenedDataset>
-						</viz:dataset>
-						<viz:feeds>
-							<viz.feeds:FeedItem id="value1" uid="size" type="Measure" values="Total Orders"/>
-							<viz.feeds:FeedItem uid="color" type="Dimension" values="Category"/>
-						</viz:feeds>
-					</viz:VizFrame>
-				</layout:flexContent>
-			</layout:FixFlex>
+			<!--<layout:FixFlex id="chartFixFlex" minFlexSize="250">-->
+			<!--	<layout:flexContent>-->
+			<!--		<viz:VizFrame id="oVizFrame" busy="false" busyIndicatorDelay="1000" visible="true" uiConfig="{ 'applicationSet': 'fiori' }" vizType="pie"-->
+			<!--			legendVisible="true" height="100%" width="100%">-->
+			<!--			<viz:dataset>-->
+			<!--				<viz.data:FlattenedDataset data="{/d/results}">-->
+			<!--					<viz.data:dimensions>-->
+			<!--						<viz.data:DimensionDefinition name="Category" value="{PurDocType}"/>-->
+			<!--					</viz.data:dimensions>-->
+			<!--					<viz.data:measures>-->
+			<!--						<viz.data:MeasureDefinition group="1" name="Total Orders" value="{NoOfDocs}"/>-->
+			<!--					</viz.data:measures>-->
+			<!--				</viz.data:FlattenedDataset>-->
+			<!--			</viz:dataset>-->
+			<!--			<viz:feeds>-->
+			<!--				<viz.feeds:FeedItem id="value1" uid="size" type="Measure" values="Total Orders"/>-->
+			<!--				<viz.feeds:FeedItem uid="color" type="Dimension" values="Category"/>-->
+			<!--			</viz:feeds>-->
+			<!--		</viz:VizFrame>-->
+			<!--	</layout:flexContent>-->
+			<!--</layout:FixFlex>-->
 		</content>
 		<footer>
 			<Toolbar>

@@ -30,12 +30,27 @@ sap.ui.define([
 			var dialog = new sap.m.Dialog({
 				title: 'Confirmation',
 				type: 'Message',
-				content: new sap.m.Text({
-					text: 'Are you sure you want to release the order?'
-				}),
+				content: [
+					new sap.m.Text({
+						text: 'Are you sure you want to release the order?'
+					}),
+					new sap.m.TextArea('submitDialogTextarea', {
+						liveChange: function(oEvent) {
+							var sText = oEvent.getParameter('value');
+							var parent = oEvent.getSource().getParent();
+
+							parent.getBeginButton().setEnabled(sText.length > 0);
+						},
+						width: '100%',
+						placeholder: 'Add note (required)'
+					})
+				],
 				beginButton: new sap.m.Button({
 					text: 'Ok',
+					enabled: false,
 					press: function() {
+						var sText = sap.ui.getCore().byId('submitDialogTextarea').getValue();
+						MessageToast.show('Note is: ' + sText);
 						self.SubmitUserOptions("05");
 						dialog.close();
 					}

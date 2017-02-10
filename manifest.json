@@ -89,7 +89,12 @@
 				{
 					"pattern": "PurchaseOrderList",
 					"name": "PurchaseOrderList",
-					"target": "PurchaseOrderList"
+					"target": "PurchaseOrderList",
+					"subroutes": [{
+				                "pattern": "PurchaseOrderList/:date:",
+				                "name": "PurchaseOrderList",
+				                "view": "PurchaseOrderList"
+			                }]
 				},
 				{
 					"pattern": "PurchaseOrderDetail",

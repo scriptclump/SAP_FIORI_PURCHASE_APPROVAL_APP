@@ -67,7 +67,7 @@ sap.ui.define([
 			var loggedInUserName = sap.ui.getCore().getModel("username");
 			if (loggedInUserName === "" || loggedInUserName === undefined) {
 				console.log('direct acsess');
-			    //oRouter.navTo('login');
+				//oRouter.navTo('login');
 			}
 		},
 
@@ -106,14 +106,14 @@ sap.ui.define([
 
 			dialog.open();
 		},
-		
+
 		/**
 		 * Clear session data from browser and device
 		 * @author Basant Sharma
 		 * @public
 		 * @returns redirect to login screen
 		 */
-		performLogout: function(){
+		performLogout: function() {
 			var oRouter = this.getRouter();
 			var isDesktop = sap.ui.Device.system.desktop;
 			if (!isDesktop) {
@@ -132,7 +132,7 @@ sap.ui.define([
 				sap.ui.getCore().setModel(null, "username");
 				oRouter.navTo('login');
 			}
-			
+
 		},
 
 		/**
@@ -159,44 +159,54 @@ sap.ui.define([
 		 */
 		registerForPush: function() {
 
-			var gcmSenderId = ""; //sap.ui.getCore().getModel("configModel").getProperty("/senderId");
+			var gcmSenderId = "597678582858";
 
 			var deviceos = sap.ui.Device.os.name;
-			var nTypes;
-
+			var nTypes = sap.Push.notificationType.SOUNDS | sap.Push.notificationType.ALERT | sap.Push.notificationType.BADGE;
 			if (deviceos === "Android") {
-				nTypes = sap.Push.notificationType.SOUNDS | sap.Push.notificationType.ALERT | sap.Push.notificationType.BADGE;
-				// sap.Push.registerForNotificationTypes(nTypes, function() {
-				// 	alert("registration success ... ");
-				// 	callbackFunction("Success");
-				// }, function() {
-				// 	alert("registration failed ... ");
-				// 	callbackFunction("Failed");
-				// }, function(payLoad) {
-				// 	alert("received notification ... "+JSON.stringify(payLoad));
-				// 	callbackFunction("Notification", payLoad);
-				// }, gcmSenderId); //GCM Sender ID, null for APNS
+				sap.Push.registerForNotificationTypes(nTypes, jQuery.proxy(this.regSuccess, this), jQuery.proxy(this.regFailure, this), jQuery.proxy(
+					this.processNotification, this), gcmSenderId);
 			} else if (deviceos === "iOS") {
-				nTypes = sap.Push.notificationType.SOUNDS | sap.Push.notificationType.ALERT | sap.Push.notificationType.BADGE;
 				sap.Push.registerForNotificationTypes(nTypes, jQuery.proxy(this.regSuccess, this), jQuery.proxy(this.regFailure, this), jQuery.proxy(
 					this.processNotification, this), null);
-				//
+
 			} else {
-				//desktop
+				console.log("This device is not supporterd for NOtifications");
 			}
 
 		},
 		regSuccess: function(result) {
-			var devicetoken = result.replace(/['"]+/g, '');
-			sap.Push.updateWithDeviceToken(devicetoken, jQuery.proxy(this.devicetokenSent, this));
+			
+			var dialog = new sap.m.BusyDialog({});
+			dialog.close();
+			var oRouter = this.getRouter();
+
+			var deviceos = sap.ui.Device.os.name;
+			if (deviceos === "Android") {
+				alert("registration success android:" + result);
+				oRouter.navTo('dashboard');
+			} else if (deviceos === "iOS") {
+				var devicetoken = result.replace(/['"]+/g, '');
+				sap.Push.updateWithDeviceToken(devicetoken, jQuery.proxy(this.devicetokenSent, this));
+			} else {
+				console.log("This device is not supporterd for NOtifications");
+			}
+
 		},
 		regFailure: function(errorInfo) {
 			var dialog = new sap.m.BusyDialog({});
 			dialog.close();
 			MessageToast.show("Error while registering to Push Notifications, PLease try later.  " + JSON.stringify(errorInfo));
+			var oRouter = this.getRouter();
+			oRouter.navTo('dashboard');
 		},
 		devicetokenSent: function() {
-			this.subscriptionToECCForEvent();
+			if (this.getUserLocalData() == null) {
+				this.subscriptionToECCForEvent();
+			} else {
+				var dialog = new sap.m.BusyDialog({});
+				dialog.close();
+			}
 		},
 		subscriptionToECCForEvent: function() {
 			var cntrl = this;
@@ -256,7 +266,7 @@ sap.ui.define([
 		},
 
 		processNotification: function(notification) {
-			//alert("Received a notifcation: " + JSON.stringify(notification));
+			//	alert("Received a notifcation: " + JSON.stringify(notification));
 			this.checkAnddisplayNotification(notification);
 		},
 		checkAnddisplayNotification: function(payLoad) {
@@ -274,9 +284,9 @@ sap.ui.define([
 					var dstr = "\"data\"";
 					var i2 = payLoad.indexOf(dstr);
 
-					var orderID = payLoad.substring((payLoad.indexOf("\"Text\"") + 9), (payLoad.indexOf("\"foreground\"") - 4));
+					var orderID = payLoad.substring((payLoad.indexOf("\"Text\"") + 9), (payLoad.indexOf("\"foreground\"") - 2));
 					var alertText = payLoad.substring((i1 + 2), (i2 - 22));
-					var messageText = alertText + " with " + orderID;
+					var messageText = alertText + orderID;
 
 					if (i1 > 0 && i2 > 0 && (i2 > i1)) {
 						basectlr.displayNotification(messageText);
@@ -385,6 +395,19 @@ sap.ui.define([
 			}).fail(function(error) {
 				MessageToast.show(error.responseJSON.error.message.value);
 			});
+
+		},
+		getUserLocalData: function() {
+
+			var store = new sap.EncryptedStorage("localStore");
+			var successCallback = function(value) {
+				return value;
+			};
+			var errorCallback = function(error) {
+				//console.log("An error occurred: " + JSON.stringify(error));
+				return error;
+			};
+			store.getItem("localUserName", successCallback, errorCallback);
 
 		}
 

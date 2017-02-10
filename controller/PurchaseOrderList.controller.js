@@ -20,13 +20,22 @@ sap.ui.define([
 			var router = this.getOwnerComponent().getRouter();
 			var target = router.getTarget("PurchaseOrderList");
 			target.attachDisplay(this.onDisplay, this);
+			// Sending parameter to display function
+			//router.getRoute("PurchaseOrderList/{date}").attachPatternMatched(this._onObjectMatched, this);
 		},
+		
+		// _onObjectMatched: function (oEvent) {
+		// 	console.clear();
+			
+		// 	console.log(oEvent.getParameter("arguments"));
+			
+		// 	alert(oEvent.getParameter("arguments").date);
+		// },
 		/** Fires evey time view is displayed.
 		 *
 		 * @param oEvent
 		 */
 		onDisplay: function(oEvent) {
-
 			var dialog = new sap.m.BusyDialog({
 
 			});
@@ -37,9 +46,21 @@ sap.ui.define([
 			//	cntrl.getView().setModel(lastRefreshAt);
 			//cntrl.byId("__updatedOnID").setValue(lastRefreshAt);
 			var urlPrefix = this.getServiceDestination();
-			var serviceUrl =
+			
+			var present_date = sap.ui.getCore();
+			var today_date = present_date.getModel('presentDate');
+			var serviceUrl = '';
+			alert('list press '+present_date.getModel('presentDate'));
+			if( today_date == '' || today_date == undefined ){
+				serviceUrl =
 				urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '" + userName +
 				"')&$expand=POItemSet&$format=json";
+			} else{
+				serviceUrl =
+				urlPrefix + "/sap/opu/odata/SAP/ZFA_PO_ORDERS_SRV/POHeaderSet/?$filter=(Username eq '" + userName +
+				"' and DocumentDate eq datetime'"+ today_date +"')&$expand=POItemSet&$format=json&";
+			}
+		
 			$.ajax({
 				url: serviceUrl,
 				type: "GET",
@@ -49,10 +70,13 @@ sap.ui.define([
 				dialog.close();
 				cntrl.setListDataLatestFirst(data);
 			}).fail(function(error) {
+				var dataModel = new JSONModel();
+				cntrl.getView().setModel(dataModel);
 				dialog.close();
 				MessageToast.show(error.responseJSON.error.message.value);
 			});
 		},
+		
 		setListDataLatestFirst: function(modelData) {
 
 			var dataModel = new JSONModel(modelData);

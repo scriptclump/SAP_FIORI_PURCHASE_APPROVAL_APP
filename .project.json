@@ -124,7 +124,7 @@
     },
     "platform": {
       "ios": {
-        "selected": true,
+        "selected": false,
         "preferences": {
           "Fullscreen": false,
           "Orientation": "all",
@@ -133,7 +133,7 @@
         }
       },
       "android": {
-        "selected": false,
+        "selected": true,
         "preferences": {
           "Fullscreen": false,
           "Orientation": "default",
